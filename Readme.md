@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Konstantin Kondaurov](https://up.htmlacademy.ru/javascript/21/user/1541029).
-* Наставник: `Неизвестно`.
+* Наставник: Евгений Лепёшкин.
 
 ---
 
