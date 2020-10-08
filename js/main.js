@@ -66,9 +66,9 @@ const mapPins = map.querySelector('.map__pins');
 
 const createMapPin = (pin) => {
   let mapPin = mapPinTemplate.cloneNode(true);
-  let img = mapPin.querySelector('.img');
-  mapPin.style.left = `${pin.location.x - MAP_PIN_WIDTH}px`;
-  mapPin.style.top = `${pin / location.y - MAP_PIN_HEIGHT}px`;
+  let img = mapPin.querySelector('img');
+  mapPin.style.left = `${pin.location.x - MAP_PIN_WIDTH / 2}px`;
+  mapPin.style.top = `${pin.location.y - MAP_PIN_HEIGHT}px`;
   img.src = pin.author.avatar;
   img.alt = pin.offer.title;
   return mapPin;
