@@ -54,7 +54,7 @@ const getAds = () => {
           "location": {
             "x": getRandom(X_LOCATION_MIN, map.offsetWidth),
             "y": getRandom(Y_LOCATION_MIN, Y_LOCATION_MAX),
-          }
+          },
         });
   }
 };
@@ -83,3 +83,42 @@ const renderPins = () => {
 };
 renderPins();
 map.classList.remove('map--faded');
+
+const offerTypeMap = {
+  'flat': "Квартира",
+  'bungalow': "Бунгало",
+  'house': "Дом",
+  'palace': "Дворец",
+};
+const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
+
+const fillCard = () => {
+  let mapCard = cardTemplate.cloneNode(true);
+  mapCard.querySelector('.popup__title').textContent = adsArray[0].offer.title;
+  mapCard.querySelector('.popup__text--address').textContent = adsArray[0].offer.address;
+  mapCard.querySelector('.popup__text--price ').textContent = `${adsArray[0].offer.price}₽/ночь`;
+  mapCard.querySelector('.popup__type').textContent = offerTypeMap[(adsArray[0].offer.type)];
+  mapCard.querySelector('.popup__text--capacity').textContent = `${adsArray[0].offer.rooms}комнаты для ${adsArray[0].offer.guests} гостей`;
+  mapCard.querySelector('.popup__text--time').textContent = `Заезд после ${adsArray[0].offer.checkin}, выезд до ${adsArray[0].offer.checkout}`;
+  mapCard.querySelector('.popup__features').textContent = adsArray[0].features;
+  mapCard.querySelector('.popup__description').textContent = adsArray[0].description;
+  mapCard.querySelector('.popup__avatar').textContent = adsArray[0].author.avatar;
+
+  const allPhotos = mapCard.querySelector('.popup__photos');
+  const cardPhotos = mapCard.querySelector('.popup__photo');
+
+  for (let photo of photos) {
+    cardPhotos.src = photo;
+    allPhotos.insertAdjacentElement('beforeEnd', cardPhotos);
+  }
+  return mapCard;
+};
+
+
+const createCard = () => {
+  const mapCardFragment = document.createDocumentFragment();
+  mapCardFragment.appendChild(fillCard());
+  let before = document.querySelector('.map__filters-container');
+  map.insertBefore(mapCardFragment, before);
+};
+createCard();
