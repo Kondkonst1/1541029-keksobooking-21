@@ -51,7 +51,7 @@
       const mapCardFragment = document.createDocumentFragment();
       mapCardFragment.appendChild(fillCard(window.data.adsArray[0]));
       let before = document.querySelector('.map__filters-container');
-      window.map.map.insertBefore(mapCardFragment, before);
+      window.map.element.insertBefore(mapCardFragment, before);
     };
 
   //  createCard();

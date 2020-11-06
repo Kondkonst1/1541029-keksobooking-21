@@ -50,7 +50,7 @@
               "photos": shuffleArray(photos).slice(0, getRandom(0, photos.length)),
             },
             "location": {
-              "x": getRandom(X_LOCATION_MIN, window.map.map.offsetWidth),
+              "x": getRandom(X_LOCATION_MIN, window.map.element.offsetWidth),
               "y": getRandom(Y_LOCATION_MIN, Y_LOCATION_MAX),
             },
           });

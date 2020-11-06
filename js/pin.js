@@ -4,7 +4,7 @@
     const MAP_PIN_WIDTH = 50;
     const MAP_PIN_HEIGHT = 70;
     const mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-    const mapPins = window.map.map.querySelector('.map__pins');
+    const mapPins = window.map.element.querySelector('.map__pins');
 
     const createMapPin = (pin) => {
       let mapPin = mapPinTemplate.cloneNode(true);
@@ -16,12 +16,15 @@
       return mapPin;
     };
 
-    const renderPins = () => {
+    const renderPins = (pins) => {
       const mapPinFragment = document.createDocumentFragment();
-      for (let i = 0; i < window.data.adsArray.length; i++) {
-        mapPinFragment.appendChild(createMapPin(window.data.adsArray[i]));
+      for (let i = 0; i < pins.length; i++) {
+        mapPinFragment.appendChild(createMapPin(pins[i]));
       }
       mapPins.appendChild(mapPinFragment);
     };
-    // renderPins();
+
+    window.pin = {
+      render: renderPins
+    };
   })();

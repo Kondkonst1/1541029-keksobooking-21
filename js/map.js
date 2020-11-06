@@ -4,7 +4,6 @@
 
 
   window.map = {
-    map: map
+    element: map
   };
 })();
-
