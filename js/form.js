@@ -46,6 +46,8 @@
       checkout: adForm.querySelector('#timeout'),
       amountRooms: adForm.querySelector('#room_number'),
       amountPlaces: adForm.querySelector('#capacity'),
+      avatar: adForm.querySelector('#avatar'),
+      imagesAd: adForm.querySelector('#images')
     };
 
     const setPrice = () => {
@@ -83,6 +85,8 @@
       fields.address.readOnly = true;
       fields.title.minLength = TITLE_MIN_LENGTH;
       fields.title.maxLength = TITLE_MAX_LENGTH;
+      fields.avatar.accept = 'image/*';
+      fields.imagesAd.accept = 'image/*';
       setDisabledState();
       setPrice();
       window.pin.render(window.data.adsArray);
