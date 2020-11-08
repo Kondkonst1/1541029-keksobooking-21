@@ -1,5 +1,5 @@
 'use strict';
-
+/* Модули часть 1 */
 (
   function () {
     const LEFT_BUTTON = 0;
@@ -14,8 +14,8 @@
     const mainPin = window.map.element.querySelector('.map__pin--main');
 
     const positionPin = {
-      topPositionPin: parseInt(mainPin.style.top, 10),
-      leftPositionPin: parseInt(mainPin.style.left, 10)
+      topPositionPin: mainPin.offsetTop,
+      leftPositionPin: mainPin.offsetLeft
     };
     const numberOfGuests = {
       1: ['1'],
@@ -46,8 +46,6 @@
       checkout: adForm.querySelector('#timeout'),
       amountRooms: adForm.querySelector('#room_number'),
       amountPlaces: adForm.querySelector('#capacity'),
-      avatar: adForm.querySelector('#avatar'),
-      imagesAd: adForm.querySelector('#images')
     };
 
     const setPrice = () => {
@@ -85,8 +83,6 @@
       fields.address.readOnly = true;
       fields.title.minLength = TITLE_MIN_LENGTH;
       fields.title.maxLength = TITLE_MAX_LENGTH;
-      fields.avatar.accept = 'image/*';
-      fields.imagesAd.accept = 'image/*';
       setDisabledState();
       setPrice();
       window.pin.render(window.data.adsArray);
@@ -129,4 +125,10 @@
     fields.checkout.addEventListener('change', function () {
       fields.checkin.value = fields.checkout.value;
     });
+    window.form = {
+      mainPin: mainPin,
+      positionPin: positionPin,
+      setAddress: setAddress,
+      OFFSET_TIP: OFFSET_TIP
+    };
   })();
