@@ -120,6 +120,6 @@
       fields.checkin.value = fields.checkout.value;
     });
     window.form = {
-      setAddress: setAddress
+      setAddress
     };
   })();

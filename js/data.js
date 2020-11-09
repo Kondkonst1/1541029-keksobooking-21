@@ -58,7 +58,7 @@
   };
   getAds();
   window.data = {
-    adsArray: adsArray
+    adsArray
   };
 
 })();

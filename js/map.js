@@ -93,8 +93,8 @@
 
   window.map = {
     element: map,
-    mainPin: mainPin,
-    mainPinInitialCoords: mainPinInitialCoords,
+    mainPin,
+    mainPinInitialCoords,
     reset: resetMap
   };
 })();
