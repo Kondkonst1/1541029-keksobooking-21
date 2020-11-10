@@ -82,7 +82,7 @@
       window.client.load(onDataLoad, window.client.showError);
     };
 
-    const onDataLoad = function (data) {
+    const onDataLoad = (data) => {
       window.pin.render(data);
     };
     const setAddress = (coords) => {
