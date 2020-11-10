@@ -61,7 +61,7 @@
     xhr.open('GET', GET_URL);
     xhr.send();
   };
-  const send = function (data, onLoad, showError) {
+  const send = (data, onLoad, showError) => {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', function () {
       if (xhr.status === CODE_OK) {
