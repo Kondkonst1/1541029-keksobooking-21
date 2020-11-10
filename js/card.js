@@ -54,5 +54,8 @@
       window.map.element.insertBefore(mapCardFragment, before);
     };
 
-  //  createCard();
+    window.card = {
+      create: createCard
+    };
+
   })();

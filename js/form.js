@@ -1,9 +1,7 @@
 'use strict';
-/* Модули часть 1 */
 (
   function () {
     const LEFT_BUTTON = 0;
-    const OFFSET_TIP = 22;
     const TITLE_MIN_LENGTH = 30;
     const TITLE_MAX_LENGTH = 100;
     const PRICE_MAX_VALUE = 1000000;
@@ -11,12 +9,7 @@
       ENTER: 'Enter',
       ESC: 'Escape'
     };
-    const mainPin = window.map.element.querySelector('.map__pin--main');
 
-    const positionPin = {
-      topPositionPin: mainPin.offsetTop,
-      leftPositionPin: mainPin.offsetLeft
-    };
     const numberOfGuests = {
       1: ['1'],
       2: ['1', '2'],
@@ -68,6 +61,7 @@
       window.map.element.classList.add('map--faded');
       adForm.classList.add('ad-form--disabled');
       fields.formHeader.disabled = true;
+      window.map.reset();
       setDisabledState();
     };
     disableActiveMode();
@@ -87,18 +81,18 @@
       setPrice();
       window.pin.render(window.data.adsArray);
     };
-    const setAddress = (offset) => {
-      document.querySelector('#address').value = ` ${positionPin.leftPositionPin}, ${positionPin.topPositionPin + offset}`;
+    const setAddress = (coords) => {
+      document.querySelector('#address').value = coords.x + ',' + coords.y;
     };
+    setAddress(window.map.mainPinInitialCoords);
 
-    setAddress(0);
-    mainPin.addEventListener('mousedown', function (evt) {
+    window.map.mainPin.addEventListener('mousedown', function (evt) {
       if (evt.button === LEFT_BUTTON) {
         enableActiveMode();
-        setAddress(OFFSET_TIP);
+        setAddress(window.map.mainPinInitialCoords);
       }
     });
-    mainPin.addEventListener('keydown', function (evt) {
+    window.map.mainPin.addEventListener('keydown', function (evt) {
       if (evt.key === Keys.ENTER) {
         enableActiveMode();
       }
@@ -126,9 +120,6 @@
       fields.checkin.value = fields.checkout.value;
     });
     window.form = {
-      mainPin: mainPin,
-      positionPin: positionPin,
-      setAddress: setAddress,
-      OFFSET_TIP: OFFSET_TIP
+      setAddress
     };
   })();
