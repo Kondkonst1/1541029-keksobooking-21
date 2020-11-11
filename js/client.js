@@ -3,9 +3,14 @@
 (function () {
   const TIMEOUT = 10000;
   const ERROR_TIMEOUT = 5000;
-  const CODE_OK = 200;
   const GET_URL = 'https://21.javascript.pages.academy/keksobooking/data';
   const POST_URL = 'https://js.dump.academy/keksobooking';
+  const statusCode = {
+    OK: 200,
+    ERROR_REQUEST: 400,
+    NOT_FOUND: 404,
+    EROR_SERVER: 500,
+  };
 
   const showErrorMessage = (message) => {
     const errorPopup = document.createElement('div');
@@ -38,36 +43,20 @@
     setTimeout(closeErrorPopup, ERROR_TIMEOUT);
   };
 
-
-  const load = (onLoad, showError) => {
-
+  const requestHandler = (onLoad, showError) => {
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
-      if (xhr.status === CODE_OK) {
-        const data = xhr.response;
-        onLoad(data);
+      if (xhr.status === statusCode.ERROR_REQUEST) {
+        showError('Неверный запрос:' + xhr.status + ' ' + xhr.statusText);
+      } else if (xhr.status === statusCode.NOT_FOUND) {
+        showError('Не найдено: ' + xhr.status + ' ' + xhr.statusText);
+      } else if (xhr.status === statusCode.EROR_SERVER) {
+        showError('Ошибка сервера:' + xhr.status + ' ' + xhr.statusText);
+      } else if (xhr.status !== statusCode.OK) {
+        showError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
       } else {
-        showError('Ошибка! Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
-      }
-    });
-    xhr.addEventListener('error', function () {
-      showError('Произошла ошибка соединения');
-    });
-    xhr.addEventListener('timeout', function () {
-      showError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
-    });
-    xhr.timeout = TIMEOUT;
-    xhr.open('GET', GET_URL);
-    xhr.send();
-  };
-  const send = (data, onLoad, showError) => {
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', function () {
-      if (xhr.status === CODE_OK) {
-        onLoad();
-      } else {
-        showError('Ошибка! Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        onLoad(xhr.response);
       }
     });
 
@@ -78,18 +67,21 @@
     xhr.addEventListener('timeout', function () {
       showError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
-
     xhr.timeout = TIMEOUT;
-
-    xhr.open('POST', POST_URL);
-    xhr.send(data);
+    return xhr;
   };
 
-
-  // EXPORT
   window.client = {
-    load,
-    send,
+    load: (onLoad, showError) => {
+      const xhr = requestHandler(onLoad, showError);
+      xhr.open('GET', GET_URL);
+      xhr.send();
+    },
+    send: (data, onLoad, showError) => {
+      const xhr = requestHandler(onLoad, showError);
+      xhr.open('POST', POST_URL);
+      xhr.send(data);
+    },
     showError: showErrorMessage
   };
 })();
