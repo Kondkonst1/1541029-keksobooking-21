@@ -79,7 +79,11 @@
       fields.title.maxLength = TITLE_MAX_LENGTH;
       setDisabledState();
       setPrice();
-      window.pin.render(window.data.adsArray);
+      window.client.load(onDataLoad, window.client.showError);
+    };
+
+    const onDataLoad = (data) => {
+      window.pin.render(data);
     };
     const setAddress = (coords) => {
       document.querySelector('#address').value = coords.x + ',' + coords.y;
